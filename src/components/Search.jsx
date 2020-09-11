@@ -4,38 +4,40 @@ import axios from 'axios';
 const Search = () => {
   const [term, setTerm] = useState('Wikipedia Home');
   const [results, setResults] = useState([]);
-
-  // !Adding lifeCycle method to functional component
+  const [debouncedTerm, setDebouncedTerm] = useState(term);
+  
+  // !Adding Debounce Method to prevent reRender component twice
   useEffect(() => {
-    const search = async () => {
-      const { data } = await axios.get('https://en.wikipedia.org/w/api.php', {
-        params: {
-          action: 'query',
-          list: 'search',
-          origin: '*',
-          format: 'json',
-          srsearch: term,
-        },
-      });
-      setResults(data.query.search);
+    const timerId = setTimeout(() => {
+      setDebouncedTerm(term);
+    }, 1000);
+    return () => {
+      clearInterval(timerId);
     };
-
-    if (term && !results.length) {
-      search();
-    } else {
-      //? We set here timeout so that search only happen once user !stop typing the term
-      const timeoutId = setTimeout(() => {
-        if (term) {
-          search();
-        }
-      }, 1000);
-
-      return () => {
-        clearTimeout(timeoutId);
-      };
-    }
   }, [term]);
-
+  
+// important : This useEffect runs when our component first reRender on screen
+  useEffect(() => {
+        const search = async () => {
+          const { data } = await axios.get(
+            'https://en.wikipedia.org/w/api.php',
+            {
+              params: {
+                action: 'query',
+                list: 'search',
+                origin: '*',
+                format: 'json',
+                srsearch: debouncedTerm,
+              },
+            }
+          );
+          setResults(data.query.search);
+        };
+        search();
+  }, [debouncedTerm])
+  
+  // !Adding lifeCycle method to functional component
+  
   const renderedResults = results.map((result) => {
     return (
       <div key={result.pageid} className="item">
