@@ -4,10 +4,8 @@ import axios from 'axios';
 const Search = () => {
   const [term, setTerm] = useState('Wikipedia Home');
   const [results, setResults] = useState([]);
-  /**
-   * !Adding lifeCycle method to functional component
-   */
-  console.log(results);
+
+  // !Adding lifeCycle method to functional component
   useEffect(() => {
     const search = async () => {
       const { data } = await axios.get('https://en.wikipedia.org/w/api.php', {
@@ -21,13 +19,21 @@ const Search = () => {
       });
       setResults(data.query.search);
     };
-    
-    setTimeout(() => {
-      if (term) {
-        search();
-      }
-    }, 1000);
-    
+
+    if (term && !results.length) {
+      search();
+    } else {
+      //? We set here timeout so that search only happen once user !stop typing the term
+      const timeoutId = setTimeout(() => {
+        if (term) {
+          search();
+        }
+      }, 1000);
+
+      return () => {
+        clearTimeout(timeoutId);
+      };
+    }
   }, [term]);
 
   const renderedResults = results.map((result) => {
