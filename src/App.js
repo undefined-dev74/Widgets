@@ -1,6 +1,7 @@
 import React from "react";
 import Accordian from './components/Accordion'
 import Search from './components/Search'
+import Dropdown from './components/Dropdown'
 export default () => {
     
     const items = [
@@ -18,10 +19,26 @@ export default () => {
       },
     ];
     
+    // ? Defining array of an options dropdown widgets
+    const options = [
+      {
+        label : 'This is a Red Color',
+        value : 'red'
+      },
+      {
+        label : 'This is a yellow Color',
+        value : 'Yellow'
+      },
+      {
+        label : 'This is a Green Color',
+        value : 'Green'
+      },
+    ]
   return (
       <div>
           {/* <Accordian items={items}/> */}
-          <Search />
+          {/* <Search /> */}
+          <Dropdown options={options}/>
       </div>
   )
 };
