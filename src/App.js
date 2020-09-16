@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import Accordian from './components/Accordion';
 import Search from './components/Search';
 import Dropdown from './components/Dropdown';
@@ -34,14 +34,23 @@ export default () => {
     },
   ];
   const [selected, setSelected] = useState(options[0]);
+  const [showDropdown, setShowDropdown] = useState(true);
+
   return (
     <div>
+      <button onClick={() => setShowDropdown(!showDropdown)}>
+        Toggle Dropdown
+      </button>
       {/* <Accordian items={items}/> */}
       {/* <Search /> */}
-      <Dropdown
-       options={options} 
-      selected={selected}
-      onSelectedChange = {setSelected} />
+      {
+        showDropdown ?
+        <Dropdown
+          options={options}
+          selected={selected}
+          onSelectedChange={setSelected}
+        /> : null
+      }
     </div>
   );
 };
