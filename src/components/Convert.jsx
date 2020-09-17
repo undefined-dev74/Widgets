@@ -1,9 +1,10 @@
+import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 
 const Convert = ({language, text} ) => {
     
     useEffect(() => {
-      console.log('New Language is added');
+        axios.post('https://translation.googleapis.com/language/translation/v2')
     }, [language, text]);
     return (
         <div>
