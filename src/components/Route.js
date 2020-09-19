@@ -1,5 +1,6 @@
+
 const Route = ({ path, children }) => {
-  return window.Location.pathname === path ? children : null;
+  return window.location.pathname === path ? children : null;
 };
 
 export default Route;
