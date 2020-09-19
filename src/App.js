@@ -6,6 +6,7 @@ import Translate from './components/Translate';
 
 
 export default () => {
+  
   const items = [
     {
       title: 'What is React ? ',
@@ -36,11 +37,37 @@ export default () => {
       value: 'Green',
     },
   ];
-
+  const showAccordian = () => {
+    if(window.location.pathname === '/') {
+      return <Accordian items={items}/>;
+    }
+  }
+  const showList = () => {
+    if(window.location.pathname === '/list') {
+      return <Search/>;
+    }
+  }
+  
+  const showDropdown = () => {
+    if(window.location.pathname === '/dropdown') {
+      return <Dropdown/>;
+    }
+  }
+  
+  const showTranslate = () => {
+    if(window.location.pathname === '/translate') {
+      return <Translate/>;
+    }
+  }
+  
   return (
     <div>
-      <Translate />
+      {/* <Translate /> */}
       {/* <Accordian items={items}/> */}
+      {showAccordian()}
+      {showList()}
+      {showDropdown()}
+      {showTranslate()}
       {/* <Search /> */}
     </div>
   );
