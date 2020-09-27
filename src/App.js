@@ -3,11 +3,12 @@ import Accordion from './components/Accordion';
 import Search from './components/Search';
 import Dropdown from './components/Dropdown';
 import Translate from './components/Translate';
+import Header from './components/Header';
 import Route from './components/Route';
 
 export default () => {
-    const [selected, setSelected] = useState([0]);
-  
+  const [selected, setSelected] = useState([0]);
+
   const items = [
     {
       title: 'What is React ? ',
@@ -40,6 +41,7 @@ export default () => {
   ];
   return (
     <div>
+      <Header />
       <Route path="/">
         <Accordion items={items} />
       </Route>
@@ -47,12 +49,11 @@ export default () => {
         <Search />
       </Route>
       <Route path="/dropdown">
-        <Dropdown 
-          label='select a color'
+        <Dropdown
+          label="select a color"
           options={options}
-          selected={ selected}
-          onSelectedChange = {setSelected}
-          
+          selected={selected}
+          onSelectedChange={setSelected}
         />
       </Route>
       <Route path="/translate">
