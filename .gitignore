@@ -21,3 +21,5 @@ I made this widgets with the help from React Hooks
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+.vercel
