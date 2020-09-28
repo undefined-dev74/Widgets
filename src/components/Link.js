@@ -2,6 +2,10 @@ import React from 'react'
 
 export default function Link({href, children,className}) {
     const onClick = (event) => {
+        // ?Handling ctrl key (whenever an user hold ctrl key + click on link it will take to new tab)
+        if(event.metaKey || event.ctrlKey){
+            return;
+        }
         event.preventDefault();
         window.history.pushState({},'',href);
         
